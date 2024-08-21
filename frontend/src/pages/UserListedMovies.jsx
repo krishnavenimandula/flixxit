@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import { getUsersLikedMovies } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import "./UserListedMovies.css"; // Import the new CSS file
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 export default function UserListedMovies() {
   const movies = useSelector((state) => state.flixxit.movies);
   const dispatch = useDispatch();

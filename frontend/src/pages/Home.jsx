@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Banner from "../components/Banner";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import Slider from "../components/Slider";
 import { useSelector, useDispatch } from "react-redux";
