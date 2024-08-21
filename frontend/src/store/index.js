@@ -100,7 +100,9 @@ export const getUsersLikedMovies = createAsyncThunk(
   async (email) => {
     const {
       data: { movies },
-    } = await axios.get(`http://localhost:8080/api/users/liked/${email}`);
+    } = await axios.get(
+      `https://flixxit-anwp787-api.vercel.app/api/users/liked/${email}`
+    );
     return movies;
   }
 );
@@ -110,10 +112,13 @@ export const removeMovieFromLiked = createAsyncThunk(
   async ({ movieId, email }) => {
     const {
       data: { movies },
-    } = await axios.put("http://localhost:8080/api/users/remove", {
-      email,
-      movieId,
-    });
+    } = await axios.put(
+      "https://flixxit-anwp787-api.vercel.app/api/users/remove",
+      {
+        email,
+        movieId,
+      }
+    );
     return movies;
   }
 );
