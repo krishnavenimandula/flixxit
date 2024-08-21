@@ -1,0 +1,11 @@
+.video-player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.react-player {
+  max-width: 100%;
+  height: auto;
+}

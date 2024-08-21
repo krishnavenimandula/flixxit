@@ -1,0 +1,84 @@
+/* General container styling */
+.container {
+  gap: 1rem;
+  position: relative;
+  padding: 2rem 0;
+}
+
+/* Title styling */
+.container h2 {
+  margin-left: 40px;
+  color: #fff;
+}
+
+/* Wrapper styling for the slider */
+.wrapper {
+  position: relative;
+}
+
+/* Slider styling */
+.slider {
+  display: flex;
+  gap: 1rem;
+  transform: translateX(0px);
+  transition: transform 0.3s ease-in-out;
+  margin-left: 50px;
+  padding-top: 20px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Controls for slider action */
+.slider-action {
+  position: absolute;
+  z-index: 99;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+/* Hide controls when not hovering */
+.none {
+  display: none !important;
+}
+
+/* Positioning for left and right controls */
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+/* Icon styling */
+.slider-action svg {
+  font-size: 2rem;
+}
+
+/* Flexbox utilities (optional) */
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.j-center {
+  justify-content: center;
+}
+
+.a-center {
+  align-items: center;
+}

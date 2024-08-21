@@ -1,0 +1,165 @@
+.image-container {
+  position: relative;
+  /* Adjust to your desired image width */
+  height: 180px; /* Adjust to your desired image height */
+  border-radius: 8px; /* Optional: adds rounded corners */
+}
+
+.image {
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container */
+  display: block;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Smooth transition for the hover effect */
+  display: flex;
+}
+
+.text {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls .icon {
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.text h3 {
+  margin: 0;
+  font-size: 16px; /* Title font size */
+}
+
+.text p {
+  margin-top: 10px;
+  font-size: 16px; /* Description font size */
+}
+
+.image-container:hover .overlay {
+  opacity: 1; /* Show the overlay with content on hover */
+}
+
+.video {
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  bottom: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* .card-container {
+  cursor: pointer;
+  width: 100%;
+  height: 150px;
+  position: relative;
+}
+
+.card-container img {
+  border-radius: 0.2rem;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.hover {
+  transform: scale(1.2);
+
+  
+  left: 0;
+  border-radius: 0.3rem;
+  box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
+  background-color: #181818;
+  transition: 0.3s ease-in-out;
+}
+
+.image-video-container {
+  position: relative;
+  height: 140px;
+}
+
+.image-video-container img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  top: 0;
+  z-index: 4;
+  position: absolute;
+}
+
+.image-video-container video {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  top: 0;
+  z-index: 5;
+  position: absolute;
+}
+
+.info-container {
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.controls svg {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.controls svg:hover {
+  color: #b8b8b8;
+}
+
+.genres ul {
+  display: flex;
+  gap: 1rem;
+}
+
+.genres li {
+  padding-right: 0.7rem;
+}
+
+.genres li:first-of-type {
+  list-style-type: none;
+}
+
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.j-between {
+  justify-content: space-between;
+} */

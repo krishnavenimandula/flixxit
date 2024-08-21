@@ -1,0 +1,39 @@
+/* VideoPlayer.css */
+.video-player-container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.controls button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.quality-controls {
+  margin-left: 20px;
+}
+
+.back {
+  position: absolute;
+  padding: 2rem;
+  z-index: 1;
+  svg {
+    font-size: 3rem;
+    cursor: pointer;
+  }
+  color: #fff;
+}
+
+.video-player {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}

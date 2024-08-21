@@ -1,0 +1,25 @@
+/* src/styles/UserListedMovies.css */
+
+.user-listed-movies-container {
+  padding: 0 2.3rem;
+  padding-top: 8rem;
+  background-color: #111;
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.content h1 {
+  margin-left: 3rem;
+  color: #fff;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
