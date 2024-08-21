@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import instance from "../axios";
 import "./Row.css";
-import { Link } from "react-router-dom";
-import {
-  RiThumbUpFill,
-  RiThumbDownLine,
-  RiThumbDownFill,
-} from "react-icons/ri";
+import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
 
 const baseUrl = "https://image.tmdb.org/t/p/original/";
 

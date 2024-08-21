@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPowerOff, FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import "./Navbar.css";
 import SearchBar from "./SearchBar";
 import { useSelector, useDispatch } from "react-redux";
-import { searchByText, getGenres } from "../store";
+import { getGenres } from "../store";
 const TMDB_API_KEY = "7f23e52bff7fe0dc439791818ec6e4ed"; // Replace with your TMDB API key
 
 function Navbar({ isScrolled }) {
@@ -16,6 +15,7 @@ function Navbar({ isScrolled }) {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const genres = useSelector((state) => state.flixxit.genres);
+  const navigate = useNavigate();
   //const searchResultsDetails = useSelector((state) => state.flixxit.search);
   //console.log(searchResultsDetails);
   const dispatch = useDispatch();
@@ -145,7 +145,7 @@ function Navbar({ isScrolled }) {
           />
         </div>
         <button>
-          <FaPowerOff />
+          <FaPowerOff onClick={() => navigate("/login")} />
         </button>
       </div>
       {searchResults.length > 0 && (

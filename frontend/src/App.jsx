@@ -4,7 +4,6 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
-import Navbar from "./components/NavBar";
 import UserListedMovies from "./pages/UserListedMovies";
 import VideoPlayer from "./components/VideoPlayer";
 import CustomVideoPlayer from "./components/CustomVideoPlayer";

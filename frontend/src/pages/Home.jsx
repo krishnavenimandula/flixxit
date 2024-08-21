@@ -1,6 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
-import Row from "../components/Row";
-import requests from "../request";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Banner from "../components/Banner";
 import Navbar from "../components/NavBar";
