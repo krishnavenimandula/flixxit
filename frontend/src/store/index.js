@@ -6,7 +6,7 @@ import {
 import axios from "axios";
 
 const API_KEY = "7f23e52bff7fe0dc439791818ec6e4ed";
-const TMDB_BASE_URL = "https:/api.themoviedb.org/3";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
 const initialState = {
   movies: [],
