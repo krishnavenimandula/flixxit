@@ -25,19 +25,13 @@ export default React.memo(function Card({
   const [email, setEmail] = useState(undefined);
 
   const handleImageClick = () => {
-    // Navigate to the movie details page with movieData
     navigate(`/movie/${movieData.id}`, { state: { movie: movieData } });
   };
 
   const handlevideoClick = () => {
-    // Navigate to the movie details page with movieData
     navigate(`/player/${movieData.id}`, { state: { movie: movieData } });
   };
-  //   onAuthStateChanged(firebaseAuth, (currentUser) => {
-  //     if (currentUser) {
-  //       setEmail(currentUser.email);
-  //     } else navigate("/login");
-  //   });
+
   const userEmail = localStorage.getItem("email");
   const addToList = async () => {
     try {
