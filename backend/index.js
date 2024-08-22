@@ -13,14 +13,15 @@ connection();
 //middleware
 
 app.use(express.json());
-const corsOptions = {
-  origin: "https://flixxit-one.vercel.app",
-  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://flixxit-one.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+    credentials: true, // If you need to include credentials like cookies in requests
+  })
+);
 
 //routes
 
