@@ -10,10 +10,6 @@ const authRoutes = require("./routes/auth");
 
 connection();
 
-//middleware
-
-app.use(express.json());
-
 app.use(
   cors({
     origin: "https://flixxit-one.vercel.app",
@@ -22,6 +18,10 @@ app.use(
     credentials: true, // If you need to include credentials like cookies in requests
   })
 );
+
+//middleware
+
+app.use(express.json());
 
 //routes
 
