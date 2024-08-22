@@ -1,0 +1,41 @@
+/* AboutUs.css */
+
+/* Center the content container */
+.about-us-container {
+  margin: 0 auto; /* Horizontally center */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 50%; /* Adjust width as needed */
+
+  /* Flexbox properties for centering content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontally center content */
+  justify-content: center; /* Vertically center content */
+  min-height: 100vh; /* Full viewport height */
+  background-color: #1a1a1a; /* Dark background for contrast */
+}
+
+/* Centered title */
+.about-us-container h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #f8f8ff; /* Light text color */
+}
+
+/* Centered section headers */
+.about-us-container h2 {
+  margin-top: 20px;
+  font-size: 1.8rem;
+  color: #f8f8ff; /* Light text color */
+}
+
+/* Centered paragraph text */
+.about-us-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f8f8ff; /* Light text color */
+
+  max-width: 800px; /* Optional: to prevent overly long lines of text */
+}

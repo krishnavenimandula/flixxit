@@ -20,10 +20,9 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "https://flixxit-anwp787-api.vercel.app/api/users";
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/users`;
       const { data: res } = await axios.post(url, data);
       navigate("/login");
-      console.log(res.message);
     } catch (error) {
       if (
         error.response &&
@@ -42,7 +41,7 @@ const Signup = () => {
           <h1>Welcome Back</h1>
           <Link to="/login">
             <button type="button" className="white_btn">
-              Sing in
+              Sign in
             </button>
           </Link>
         </div>
@@ -87,7 +86,7 @@ const Signup = () => {
             />
             {error && <div className="error_msg">{error}</div>}
             <button type="submit" className="green_btn">
-              Sing Up
+              Sign Up
             </button>
           </form>
         </div>

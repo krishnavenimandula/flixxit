@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaPowerOff, FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { FaPowerOff, FaSearch, FaBars, FaTimes, FaUser } from "react-icons/fa";
 import "./Navbar.css";
 import SearchBar from "./SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import { getGenres } from "../store";
-const TMDB_API_KEY = "7f23e52bff7fe0dc439791818ec6e4ed"; // Replace with your TMDB API key
+const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY; // Replace with your TMDB API key
 
 function Navbar({ isScrolled }) {
   const [showSearch, setShowSearch] = useState(false);
@@ -14,16 +14,16 @@ function Navbar({ isScrolled }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const genres = useSelector((state) => state.flixxit.genres);
   const navigate = useNavigate();
-  //const searchResultsDetails = useSelector((state) => state.flixxit.search);
-  //console.log(searchResultsDetails);
   const dispatch = useDispatch();
   const links = [
-    { name: "Home", link: "/" },
+    { name: "Movies", link: "/" },
     { name: "TV Shows", link: "/tv" },
-    { name: "Movies", link: "/movies" },
-    { name: "My List", link: "/mylist" },
+    { name: "Watch List", link: "/mylist" },
+    { name: "Subscription", link: "/subscription" },
+    { name: "About", link: "/about" },
   ];
 
   useEffect(() => {
@@ -45,10 +45,6 @@ function Navbar({ isScrolled }) {
   useEffect(() => {
     dispatch(getGenres());
   }, []);
-  // useEffect(() => {
-  //   console.log("enterd");
-  //   dispatch(searchByText());
-  // }, []);
 
   const handleSearch = async (query) => {
     try {
@@ -59,13 +55,14 @@ function Navbar({ isScrolled }) {
       );
 
       const data = await response.json();
-      console.log(data.results);
       let movieArray = [];
       let filteredArray = data.results.filter(
-        (item) => item.media_type === "movie" && item.backdrop_path != null
+        (item) =>
+          item.media_type === "movie" &&
+          item.backdrop_path != null &&
+          item.original_language == "en"
       );
 
-      console.log(filteredArray);
       filteredArray.forEach((movie) => {
         const movieGenres = [];
         movie.genre_ids.forEach((genre) => {
@@ -85,12 +82,17 @@ function Navbar({ isScrolled }) {
         });
       });
 
-      console.log(movieArray);
       setSearchResults(movieArray);
-      console.log("Search results:", movieArray); // Log the results or handle them as needed
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+
+    navigate("/login");
   };
 
   const handleInputChange = (e) => {
@@ -100,6 +102,10 @@ function Navbar({ isScrolled }) {
   const closeSearch = () => {
     setSearchResults([]);
     setSearchQuery("");
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   return (
@@ -144,8 +150,19 @@ function Navbar({ isScrolled }) {
             }}
           />
         </div>
+        <div className="user-icon" onClick={toggleDropdown}>
+          <FaUser />
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              <Link to="/profile">Profile</Link>
+              <Link to="/login" onClick={handleLogout}>
+                Logout
+              </Link>
+            </div>
+          )}
+        </div>
         <button>
-          <FaPowerOff onClick={() => navigate("/login")} />
+          <FaPowerOff onClick={handleLogout} />
         </button>
       </div>
       {searchResults.length > 0 && (

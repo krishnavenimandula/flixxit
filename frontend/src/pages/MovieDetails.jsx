@@ -1,14 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import "./MovieDetails.css";
-import Navbar from "../components/Navbar";
 function MovieDetails() {
   const location = useLocation();
   const { movie } = location.state;
   console.log(movie);
   return (
     <div className="movie-details">
-      <Navbar isScrolled={true} />
       <div>
         <h1>{movie.name}</h1>
       </div>

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
@@ -14,11 +14,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "https://flixxit-anwp787-api.vercel.app/api/auth";
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/auth`;
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       localStorage.setItem("email", data.email);
-      window.location = "/";
+      onLogin();
+      navigate("/");
     } catch (error) {
       if (
         error.response &&
@@ -54,9 +55,9 @@ const Login = () => {
               required
               className="input"
             />
-            {error && <div className={error_msg}>{error}</div>}
+            {error && <div className="error_msg">{error}</div>}
             <button type="submit" className="green_btn">
-              Sing In
+              Sign In
             </button>
           </form>
         </div>
@@ -64,7 +65,7 @@ const Login = () => {
           <h1>New Here ?</h1>
           <Link to="/signup">
             <button type="button" className="white_btn">
-              Sing Up
+              Sign Up
             </button>
           </Link>
         </div>

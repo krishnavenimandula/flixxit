@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { removeMovieFromLiked } from "../store";
 import video from "../assets/Video_normal.mp4";
 import "./Card.css"; // Importing the CSS file
+import { toast } from "react-toastify";
 
 export default React.memo(function Card({
   index,
@@ -34,10 +35,11 @@ export default React.memo(function Card({
   const userEmail = localStorage.getItem("email");
   const addToList = async () => {
     try {
-      await axios.post("https://flixxit-anwp787-api.vercel.app/api/users/add", {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/add`, {
         userEmail,
         data: movieData,
       });
+      toast.success("Successfully added to the list!");
     } catch (error) {
       console.log(error);
     }

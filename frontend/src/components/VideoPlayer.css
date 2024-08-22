@@ -1,11 +1,14 @@
-.video-player {
-  display: flex;
+.video-player-normal {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important;
+  text-align: center !important;
+  margin: 0 !important;
+  color: #fff !important;
+
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-}
-
-.react-player {
-  max-width: 100%;
-  height: auto;
+  margin-top: 20px; */
 }

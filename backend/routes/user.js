@@ -5,6 +5,9 @@ const {
   addToLikedMovies,
   getLikedMovies,
   removeFromLikedMovies,
+  addToPlan,
+  getPlan,
+  getUserProfile,
 } = require("../controllers/UserController");
 
 router.post("/", async (req, res) => {
@@ -37,5 +40,8 @@ router.get("/liked/:email", async (req, res) => {
 });
 router.post("/add", addToLikedMovies);
 router.put("/remove", removeFromLikedMovies);
+router.post("/add/plan", addToPlan);
+router.get("/plan/:email", getPlan);
+router.get("/profile/:email", getUserProfile);
 
 module.exports = router;

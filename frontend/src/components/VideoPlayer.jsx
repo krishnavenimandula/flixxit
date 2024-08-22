@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactPlayer from "react-player";
 import { useLocation } from "react-router-dom";
-const API_KEY = "7f23e52bff7fe0dc439791818ec6e4ed";
+import "./VideoPlayer.css";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const VideoPlayer = () => {
   const location = useLocation();
   const { movie } = location.state;
@@ -12,9 +13,8 @@ const VideoPlayer = () => {
   useEffect(() => {
     const fetchTrailer = async () => {
       try {
-        const API_KEY = "your_tmdb_api_key_here";
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=7f23e52bff7fe0dc439791818ec6e4ed`
+          `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${API_KEY}`
         );
 
         const trailers = response.data.results.filter(
@@ -36,7 +36,7 @@ const VideoPlayer = () => {
   }, [movie.id]);
 
   return (
-    <div className="video-player">
+    <div className="video-player-normal">
       {videoUrl ? (
         <ReactPlayer url={videoUrl} controls={true} />
       ) : (

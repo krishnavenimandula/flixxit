@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardSlider from "./CardSlider";
-import { fetchDataByGenre, getGenres } from "../store";
+import { fetchDataByGenreTv, getGenres } from "../store";
 
-export default function Slider() {
+export default function TvSlider() {
   const dispatch = useDispatch();
-  const { moviesByGenre, genresLoaded } = useSelector((state) => state.flixxit);
+  const { tvByGenre, genresLoaded } = useSelector((state) => state.flixxit);
 
   const [uniqueMovies, setUniqueMovies] = useState([]);
 
   useEffect(() => {
     if (!genresLoaded) {
       dispatch(getGenres());
-    } else if (moviesByGenre.length === 0) {
-      dispatch(fetchDataByGenre({ genres: ["28", "16", "35", "99"] })); // Fetch genres
+    } else if (tvByGenre.length === 0) {
+      dispatch(fetchDataByGenreTv({ genres: ["28", "16", "35", "99"] })); // Fetch genres
     }
-  }, [dispatch, genresLoaded, moviesByGenre.length]);
+  }, [dispatch, genresLoaded, tvByGenre.length]);
 
   useEffect(() => {
-    if (moviesByGenre.length > 0) {
+    if (tvByGenre.length > 0) {
       // Flatten the movie lists and ensure uniqueness
-      const allMovies = moviesByGenre.flatMap(
+      const allMovies = tvByGenre.flatMap(
         (genreData) => genreData.movies || []
       );
 
@@ -28,10 +28,10 @@ export default function Slider() {
       allMovies.forEach((movie) => uniqueMoviesMap.set(movie.id, movie));
       setUniqueMovies(Array.from(uniqueMoviesMap.values()));
     }
-  }, [moviesByGenre]);
+  }, [tvByGenre]);
 
   const getMoviesForGenre = (genreId) => {
-    const genreData = moviesByGenre.find(({ genre }) => genre === genreId);
+    const genreData = tvByGenre.find(({ genre }) => genre === genreId);
     if (genreData) {
       const movies = genreData.movies.filter((movie) =>
         uniqueMovies.some((uniqueMovie) => uniqueMovie.id === movie.id)
@@ -43,9 +43,8 @@ export default function Slider() {
   };
 
   const genreNames = {
-    28: "Action Movies",
-    16: "Animation Movies",
-    35: "Comedy Movies",
+    16: "Animation",
+    35: "Comedy",
     99: "Documentaries",
   };
 
@@ -57,7 +56,7 @@ export default function Slider() {
     />
   ));
 
-  if (!genresLoaded || moviesByGenre.length === 0) {
+  if (!genresLoaded || tvByGenre.length === 0) {
     return <div>Loading...</div>;
   }
 

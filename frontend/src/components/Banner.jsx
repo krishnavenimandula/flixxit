@@ -4,19 +4,25 @@ import requests from "../request";
 import "./Banner.css";
 
 import { useNavigate } from "react-router";
-function Banner() {
+function Banner({ type }) {
   const [movie, setMovie] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
-      const request = await instance.get(requests.fetchTrending);
+      let request;
+      if (type == "movie") {
+        request = await instance.get(requests.fetchActionMovies);
+      }
+      if (type == "tv") {
+        request = await instance.get(requests.fetchAnimeTv);
+      }
+
       setMovie(
         request.data.results[
           Math.floor(Math.random() * request.data.results.length - 1)
         ]
       );
-      console.log(request);
       return request;
     }
     fetchData();
@@ -34,7 +40,6 @@ function Banner() {
         backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
         backgroundPosition: "center center",
       }}
-      onClick={() => navigate("/player")}
     >
       <div className="banner-contents">
         <h1 className="banner-title">
@@ -44,8 +49,12 @@ function Banner() {
         {/* background image */}
         {/* title */}
         <div className="banner-buttons">
-          <button className="banner-button">Play</button>
-          <button className="banner-button">My List</button>
+          <button className="banner-button" onClick={() => navigate("/player")}>
+            Play
+          </button>
+          <button className="banner-button" onClick={() => navigate("/mylist")}>
+            Watch list
+          </button>
         </div>
         {/* tow buttons */}
         {/* description */}

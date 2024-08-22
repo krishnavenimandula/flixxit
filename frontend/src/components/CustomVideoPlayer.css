@@ -23,13 +23,13 @@
 
 .back {
   position: absolute;
-  padding: 2rem;
+  padding: 4rem;
   z-index: 1;
+  color: #fff;
   svg {
     font-size: 3rem;
     cursor: pointer;
   }
-  color: #fff;
 }
 
 .video-player {

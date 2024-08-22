@@ -73,7 +73,7 @@
 }
 
 .navbar svg {
-  color: #f34242;
+  color: #3bb19b;
   font-size: 1.2rem;
 }
 
@@ -124,6 +124,41 @@
   opacity: 1;
   visibility: visible;
   padding: 0.3rem;
+}
+
+.user-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu a {
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f4f4f4;
+}
+
+.menu-icon {
+  font-size: 1.5rem;
 }
 
 /* Responsive Styles */

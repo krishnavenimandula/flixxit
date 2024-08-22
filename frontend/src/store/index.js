@@ -4,14 +4,17 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
-const API_KEY = "7f23e52bff7fe0dc439791818ec6e4ed";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
 const initialState = {
   movies: [],
   genresLoaded: false,
   genres: [],
+  moviesByGenre: [],
+  tvByGenre: [],
 };
 
 export const getGenres = createAsyncThunk("flixxit/genres", async () => {
@@ -23,45 +26,93 @@ export const getGenres = createAsyncThunk("flixxit/genres", async () => {
 
 const createArrayFromRawData = (array, moviesArray, genres) => {
   array.forEach((movie) => {
-    const movieGenres = [];
-    movie.genre_ids.forEach((genre) => {
-      const name = genres.find(({ id }) => id === genre);
-      if (name) movieGenres.push(name.name);
-    });
-    if (movie.backdrop_path)
-      moviesArray.push({
-        id: movie.id,
-        name: movie?.original_name ? movie.original_name : movie.original_title,
-        image: movie.backdrop_path,
-        genres: movieGenres.slice(0, 3),
-        poster: movie.poster_path,
-        overview: movie.overview,
-        rating: movie.vote_average,
+    if (movie.original_language == "en" && !movie.adult) {
+      const movieGenres = [];
+      movie.genre_ids.forEach((genre) => {
+        const name = genres.find(({ id }) => id === genre);
+        if (name) movieGenres.push(name.name);
       });
+      if (movie.backdrop_path)
+        moviesArray.push({
+          id: movie.id,
+          name: movie?.original_name
+            ? movie.original_name
+            : movie.original_title,
+          image: movie.backdrop_path,
+          genres: movieGenres.slice(0, 3),
+          poster: movie.poster_path,
+          overview: movie.overview,
+          rating: movie.vote_average,
+        });
+    }
   });
 };
 
 const getRawData = async (api, genres, paging = false) => {
   const moviesArray = [];
   for (let i = 1; moviesArray.length < 60 && i < 10; i++) {
-    const {
-      data: { results },
-    } = await axios.get(`${api}${paging ? `&page=${i}` : ""}`);
-    createArrayFromRawData(results, moviesArray, genres);
+    const response = await axios.get(`${api}${paging ? `&page=${i}` : ""}`);
+    createArrayFromRawData(response.data.results, moviesArray, genres);
   }
   return moviesArray;
 };
 
 export const fetchDataByGenre = createAsyncThunk(
   "flixxit/genre",
-  async ({ genre, type }, thunkAPI) => {
+  async ({ genres }, thunkAPI) => {
     const {
-      flixxit: { genres },
+      flixxit: { genres: stateGenres },
     } = thunkAPI.getState();
-    return getRawData(
-      `${TMDB_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`,
-      genres
-    );
+    const moviesArray = [];
+
+    try {
+      for (const genre of genres) {
+        const genreMovies = await getRawData(
+          `${TMDB_BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=${genre}`,
+          stateGenres
+        );
+        const uniqueMoviesMap = new Map();
+        genreMovies.forEach((movie) => uniqueMoviesMap.set(movie.id, movie));
+
+        moviesArray.push({
+          genre,
+          movies: Array.from(uniqueMoviesMap.values()),
+        });
+      }
+      return moviesArray;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchDataByGenreTv = createAsyncThunk(
+  "flixxit/genreTv",
+  async ({ genres }, thunkAPI) => {
+    const {
+      flixxit: { genres: stateGenres },
+    } = thunkAPI.getState();
+    const moviesArray = [];
+
+    try {
+      for (const genre of genres) {
+        const genreMovies = await getRawData(
+          `${TMDB_BASE_URL}/discover/tv?api_key=${API_KEY}&language=en-US&with_genres=${genre}`,
+          stateGenres
+        );
+        // Ensure uniqueness by using a Map
+        const uniqueMoviesMap = new Map();
+        genreMovies.forEach((movie) => uniqueMoviesMap.set(movie.id, movie));
+
+        moviesArray.push({
+          genre,
+          movies: Array.from(uniqueMoviesMap.values()),
+        });
+      }
+      return moviesArray;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
 
@@ -71,9 +122,8 @@ export const searchByText = createAsyncThunk(
     const {
       flixxit: { search },
     } = thunkAPI.getState();
-    console.log("query", query);
     return getRawData(
-      `${TMDB_BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(
+      `${TMDB_BASE_URL}/search/multi?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(
         query
       )}`,
       search
@@ -88,7 +138,7 @@ export const fetchMovies = createAsyncThunk(
       flixxit: { genres },
     } = thunkAPI.getState();
     return getRawData(
-      `${TMDB_BASE_URL}/trending/${type}/week?api_key=${API_KEY}`,
+      `${TMDB_BASE_URL}/trending/${type}/week?api_key=${API_KEY}&language=en-US`,
       genres,
       true
     );
@@ -101,7 +151,7 @@ export const getUsersLikedMovies = createAsyncThunk(
     const {
       data: { movies },
     } = await axios.get(
-      `https://flixxit-anwp787-api.vercel.app/api/users/liked/${email}`
+      `${import.meta.env.VITE_API_BASE_URL}/api/users/liked/${email}`
     );
     return movies;
   }
@@ -113,12 +163,13 @@ export const removeMovieFromLiked = createAsyncThunk(
     const {
       data: { movies },
     } = await axios.put(
-      "https://flixxit-anwp787-api.vercel.app/api/users/remove",
+      `${import.meta.env.VITE_API_BASE_URL}/api/users/remove`,
       {
         email,
         movieId,
       }
     );
+    toast.success("Successfully deleted");
     return movies;
   }
 );
@@ -131,12 +182,16 @@ const flixxitSlice = createSlice({
       state.genres = action.payload;
       state.genresLoaded = true;
     });
+    builder.addCase(fetchDataByGenre.fulfilled, (state, action) => {
+      state.moviesByGenre = action.payload;
+    });
+    builder.addCase(fetchDataByGenreTv.fulfilled, (state, action) => {
+      state.tvByGenre = action.payload;
+    });
     builder.addCase(fetchMovies.fulfilled, (state, action) => {
       state.movies = action.payload;
     });
-    builder.addCase(fetchDataByGenre.fulfilled, (state, action) => {
-      state.movies = action.payload;
-    });
+
     builder.addCase(getUsersLikedMovies.fulfilled, (state, action) => {
       state.movies = action.payload;
     });
