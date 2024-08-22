@@ -12,7 +12,7 @@ connection();
 
 app.use(
   cors({
-    origin: "https://flixxit-one.vercel.app",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
     credentials: true, // If you need to include credentials like cookies in requests
@@ -20,10 +20,7 @@ app.use(
 );
 
 app.options("*", (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://flixxit-one.vercel.app"
-  );
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
