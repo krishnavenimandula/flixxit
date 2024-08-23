@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Login = ({ onLogin }) => {
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       localStorage.setItem("email", data.email);
-      onLogin();
+
       navigate("/");
     } catch (error) {
       if (

@@ -43,10 +43,7 @@ const App = () => {
       <Routes>
         {/* Public Routes */}
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/login"
-          element={<Login onLogin={() => setIsAuthenticated(true)} />}
-        />
+        <Route path="/login" element={<Login />} />
 
         {/* Protected Routes */}
         {isAuthenticated ? (
