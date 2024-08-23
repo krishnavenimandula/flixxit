@@ -8,9 +8,10 @@ const authRoutes = require("./routes/auth");
 
 app.use(
   cors({
-    origin: "*", // Replace with your frontend URL
+    origin: "https://flixxit-one.vercel.app", // Allow requests from this origin
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type,Authorization",
+    credentials: true, // If you are sending cookies or authorization headers
   })
 );
 

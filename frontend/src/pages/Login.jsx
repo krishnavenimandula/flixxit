@@ -15,7 +15,18 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     try {
       const url = `${import.meta.env.VITE_API_BASE_URL}/api/auth`;
-      const { data: res } = await axios.post(url, data);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "https://flixxit-one.vercel.app/",
+          // Add other custom headers as needed
+          // Example: 'Authorization': `Bearer ${token}`,
+        },
+        // Include credentials if needed (e.g., for cookies, auth headers)
+        withCredentials: true,
+      };
+
+      const { data: res } = await axios.post(url, data, config);
       localStorage.setItem("token", res.data);
       localStorage.setItem("email", data.email);
       onLogin();
