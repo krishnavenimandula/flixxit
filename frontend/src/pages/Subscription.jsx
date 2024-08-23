@@ -10,7 +10,7 @@ function Subscription() {
   const getPlan = async () => {
     try {
       const response = await axios.get(
-        `https://flixxit-anwp787-api.vercel.app/api/users/plan/${userEmail}`
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/plan/${userEmail}`
       );
       if (response.data.plan.length > 0) {
         setPlan(response.data.plan[0].planName);
@@ -27,7 +27,7 @@ function Subscription() {
     const planDate = new Date().toISOString();
     try {
       await axios.post(
-        `https://flixxit-anwp787-api.vercel.app/api/users/add/plan`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/add/plan`,
         {
           userEmail,
           data: { planName, planDate },

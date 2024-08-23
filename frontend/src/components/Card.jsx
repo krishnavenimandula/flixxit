@@ -35,7 +35,7 @@ export default React.memo(function Card({
   const userEmail = localStorage.getItem("email");
   const addToList = async () => {
     try {
-      await axios.post(`https://flixxit-anwp787-api.vercel.app/api/users/add`, {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/add`, {
         userEmail,
         data: movieData,
       });

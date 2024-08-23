@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `https://flixxit-anwp787-api.vercel.app/api/auth`;
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/auth`;
       //   const config = {
       //     headers: {
       //       "Content-Type": "application/json",

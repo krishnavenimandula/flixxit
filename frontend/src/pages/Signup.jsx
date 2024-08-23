@@ -20,7 +20,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `https://flixxit-anwp787-api.vercel.app/api/users`;
+      const url = `${import.meta.env.VITE_API_BASE_URL}/api/users`;
       const { data: res } = await axios.post(url, data);
       navigate("/login");
     } catch (error) {
