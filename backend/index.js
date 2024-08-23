@@ -10,17 +10,7 @@ const authRoutes = require("./routes/auth");
 connection();
 
 // Middleware
-app.use(
-  cors({
-    origin: "https://flixxit-one.vercel.app", // Your frontend origin
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-    credentials: true, // Allow credentials
-  })
-);
-
-// Handle preflight requests
-app.options("*", cors()); // Allow preflight requests for all routes
+app.use(cors());
 
 app.use(express.json());
 
