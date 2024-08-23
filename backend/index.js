@@ -27,7 +27,6 @@ app.use(
     origin: "*", // Replace with your frontend domain for more security
     methods: "GET, POST, PUT, DELETE, OPTIONS",
     allowedHeaders: "Content-Type, Authorization",
-    credentials: true,
   })
 );
 
