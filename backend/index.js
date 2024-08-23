@@ -6,35 +6,27 @@ const connection = require("./db");
 const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 
-// app.use(
-//   cors({
-//     origin: "*", // Allow requests from this origin
-//     methods: "GET,POST,PUT,DELETE",
-//     allowedHeaders: "Content-Type,Authorization",
-//     credentials: true, // If you are sending cookies or authorization headers
-//   })
-// );
-
-//connection
-
+// Database connection
 connection();
 
-//middleware
-
+// Middleware
 app.use(
   cors({
     origin: "https://flixxit-one.vercel.app", // Your frontend origin
-    methods: "GET, POST, PUT, DELETE, OPTIONS",
-    allowedHeaders: "Content-Type, Authorization",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow credentials
   })
 );
 
 app.use(express.json());
 
-//routes
-
+// Routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
+// Handle preflight requests
+app.options("*", cors()); // Allow preflight requests for all routes
+
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, () => console.log(`Listening on port ${port}`));
