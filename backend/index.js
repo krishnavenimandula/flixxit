@@ -6,6 +6,14 @@ const connection = require("./db");
 const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 
+app.use(
+  cors({
+    origin: "*", // Replace with your frontend URL
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
+
 //connection
 
 connection();
