@@ -19,14 +19,14 @@ app.use(
   })
 );
 
+// Handle preflight requests
+app.options("*", cors()); // Allow preflight requests for all routes
+
 app.use(express.json());
 
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-
-// Handle preflight requests
-app.options("*", cors()); // Allow preflight requests for all routes
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}`));

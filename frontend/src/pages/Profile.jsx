@@ -10,7 +10,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userEmail}`
+          `https://flixxit-anwp787-api.vercel.app/api/users/profile/${userEmail}`
         );
         setUserData(response.data);
       } catch (error) {
