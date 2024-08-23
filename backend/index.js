@@ -6,14 +6,19 @@ const connection = require("./db");
 const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 
-app.use(
-  cors({
-    origin: "*", // Allow requests from this origin
-    methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
-    credentials: true, // If you are sending cookies or authorization headers
-  })
-);
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
+
+// app.use(
+//   cors({
+//     origin: "*", // Allow requests from this origin
+//     methods: "GET,POST,PUT,DELETE",
+//     allowedHeaders: "Content-Type,Authorization",
+//     credentials: true, // If you are sending cookies or authorization headers
+//   })
+// );
 
 //connection
 
