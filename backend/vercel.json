@@ -2,11 +2,12 @@
   "version": 2,
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/(.*)",
       "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "*"
+          "value": "https://flixxit-one.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
