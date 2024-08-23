@@ -18,7 +18,7 @@ const Login = ({ onLogin }) => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "https://flixxit-one.vercel.app/",
+
           // Add other custom headers as needed
           // Example: 'Authorization': `Bearer ${token}`,
         },
