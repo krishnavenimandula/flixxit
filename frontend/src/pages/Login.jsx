@@ -15,18 +15,18 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     try {
       const url = `https://flixxit-anwp787-api.vercel.app/api/auth`;
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
+      //   const config = {
+      //     headers: {
+      //       "Content-Type": "application/json",
 
-          // Add other custom headers as needed
-          // Example: 'Authorization': `Bearer ${token}`,
-        },
-        // Include credentials if needed (e.g., for cookies, auth headers)
-        withCredentials: true,
-      };
+      //       // Add other custom headers as needed
+      //       // Example: 'Authorization': `Bearer ${token}`,
+      //     },
+      //     // Include credentials if needed (e.g., for cookies, auth headers)
+      //     //withCredentials: true,
+      //   };
 
-      const { data: res } = await axios.post(url, data, config);
+      const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       localStorage.setItem("email", data.email);
       onLogin();
