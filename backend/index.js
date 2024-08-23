@@ -13,19 +13,19 @@ connection();
 const corsOptions = {
   origin: "*", // Frontend origin
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  //allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   //  credentials: true, // Allow credentials (cookies, authorization headers)
 };
 
 // Apply CORS middleware globally
 app.use(cors(corsOptions));
 
-// Handle preflight requests for all routes
-app.options("*", cors(corsOptions));
+// // Handle preflight requests for all routes
+// app.options("*", cors(corsOptions));
 
-app.options("*", (req, res) => {
-  res.sendStatus(200);
-});
+// app.options("*", (req, res) => {
+//   res.sendStatus(200);
+// });
 
 app.use(express.json());
 
