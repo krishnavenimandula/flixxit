@@ -6,8 +6,6 @@ const connection = require("./db");
 const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 
-app.use(cors());
-
 // app.use(
 //   cors({
 //     origin: "*", // Allow requests from this origin
@@ -24,7 +22,7 @@ connection();
 //middleware
 
 app.use(express.json());
-
+app.use(cors());
 //routes
 
 app.use("/api/users", userRoutes);
