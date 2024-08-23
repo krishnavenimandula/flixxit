@@ -21,14 +21,24 @@ connection();
 
 //middleware
 
-app.use(express.json());
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "https://flixxit-one.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(200);
+});
+
 app.use(
   cors({
-    origin: "*", // Replace with your frontend domain for more security
+    origin: "https://flixxit-one.vercel.app", // Your frontend origin
     methods: "GET, POST, PUT, DELETE, OPTIONS",
     allowedHeaders: "Content-Type, Authorization",
+    credentials: true, // Allow cookies/auth headers
   })
 );
+
+app.use(express.json());
 
 //routes
 
