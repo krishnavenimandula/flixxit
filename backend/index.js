@@ -22,7 +22,15 @@ connection();
 //middleware
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Replace with your frontend domain for more security
+    methods: "GET, POST, PUT, DELETE, OPTIONS",
+    allowedHeaders: "Content-Type, Authorization",
+    credentials: true,
+  })
+);
+
 //routes
 
 app.use("/api/users", userRoutes);
