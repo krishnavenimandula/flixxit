@@ -11,17 +11,17 @@ connection();
 
 // Middleware
 const corsOptions = {
-  origin: "*", // Frontend origin
+  origin: "https://flixxit-one.vercel.app", // Frontend origin, replace with your actual frontend URL
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
-  //allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  //  credentials: true, // Allow credentials (cookies, authorization headers)
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  credentials: true, // Allow credentials if needed (e.g., cookies)
 };
 
 // Apply CORS middleware globally
-app.use(cors());
+app.use(cors(corsOptions));
 
 // // Handle preflight requests for all routes
-// app.options("*", cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // app.options("*", (req, res) => {
 //   res.sendStatus(200);
