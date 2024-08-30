@@ -36,7 +36,6 @@ export default function TvSlider() {
       const movies = genreData.movies.filter((movie) =>
         uniqueMovies.some((uniqueMovie) => uniqueMovie.id === movie.id)
       );
-      console.log(movies);
       return movies.slice(0, 15); // Limit to 15 movies
     }
     return [];

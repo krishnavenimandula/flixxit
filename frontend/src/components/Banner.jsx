@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
-import instance from "../axios";
+import axios from "axios";
 import requests from "../request";
 import "./Banner.css";
 
 import { useNavigate } from "react-router";
 function Banner({ type }) {
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const [movie, setMovie] = useState([]);
   const navigate = useNavigate();
-
+  const TMDB_BASE_URL = "https://api.themoviedb.org/3";
   useEffect(() => {
     async function fetchData() {
       let request;
       if (type == "movie") {
-        request = await instance.get(requests.fetchActionMovies);
+        request = await axios.get(
+          `${TMDB_BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=28`
+        );
+        // Ensu);
       }
       if (type == "tv") {
-        request = await instance.get(requests.fetchAnimeTv);
+        request = await axios.get(
+          `${TMDB_BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=16`
+        );
       }
 
       setMovie(
