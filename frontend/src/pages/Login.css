@@ -5,43 +5,53 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 15px;
 }
 
 .login_form_container {
-  width: 900px;
-  height: 500px;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
   display: flex;
+  flex-direction: column;
   border-radius: 10px;
   box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
-.left {
-  flex: 2;
+.left,
+.right {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.left {
+  flex: 1;
   background-color: #333333;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  padding: 20px;
 }
 
 .form_container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .form_container h1 {
-  font-size: 40px;
+  font-size: 24px;
   margin-top: 0;
 }
 
 .input {
   outline: none;
   border: none;
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   padding: 15px;
   border-radius: 10px;
   background-color: #edf5f3;
@@ -50,7 +60,8 @@
 }
 
 .error_msg {
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   padding: 15px;
   margin: 5px 0;
   font-size: 14px;
@@ -59,22 +70,20 @@
   border-radius: 5px;
   text-align: center;
 }
+
 .right {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: #3bb19b;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  padding: 20px;
 }
 
 .right h1 {
   margin-top: 0;
   color: white;
-  font-size: 40px;
-  align-self: center;
+  font-size: 24px;
+  text-align: center;
 }
 
 .white_btn,
@@ -84,7 +93,8 @@
   padding: 12px 0;
   background-color: white;
   border-radius: 20px;
-  width: 180px;
+  max-width: 180px;
+  width: 100% !important;
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
@@ -93,5 +103,27 @@
 .green_btn {
   background-color: #3bb19b;
   color: white;
-  margin: 10px;
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .login_form_container {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .left {
+    background-color: #333333;
+    padding: 20px;
+  }
+
+  .right {
+    background-color: #3bb19b;
+    padding: 20px;
+  }
 }
