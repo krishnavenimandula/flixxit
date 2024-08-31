@@ -147,33 +147,62 @@ export const fetchMovies = createAsyncThunk(
 
 export const getUsersLikedMovies = createAsyncThunk(
   "flixxit/getLiked",
-  async (email) => {
-    const {
-      data: { movies },
-    } = await axios.get(
-      `${import.meta.env.VITE_API_BASE_URL}/api/users/liked/${email}`
-    );
-    return movies;
+  async (email, thunkAPI) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("No token found");
+    }
+
+    try {
+      const {
+        data: { movies },
+      } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/liked/${email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return movies;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
 
 export const removeMovieFromLiked = createAsyncThunk(
   "flixxit/deleteLiked",
-  async ({ movieId, email }) => {
-    const {
-      data: { movies },
-    } = await axios.put(
-      `${import.meta.env.VITE_API_BASE_URL}/api/users/remove`,
-      {
-        email,
-        movieId,
-      }
-    );
-    toast.success("Successfully deleted");
-    return movies;
+  async ({ movieId, email }, thunkAPI) => {
+    const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+
+    if (!token) {
+      return thunkAPI.rejectWithValue("No token found");
+    }
+
+    try {
+      const {
+        data: { movies },
+      } = await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/remove`,
+        {
+          email,
+          movieId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request header
+          },
+        }
+      );
+      toast.success("Successfully deleted");
+      return movies;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
-
 const flixxitSlice = createSlice({
   name: "flixxit",
   initialState,

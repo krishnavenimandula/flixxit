@@ -8,10 +8,25 @@ function Subscription() {
   const [planDetails, setPlanDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const getPlan = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("No token found. Please log in.");
+      setLoading(false);
+      return;
+    }
+
     try {
+      console.log(token);
       const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/plan/${userEmail}`
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/plan/${userEmail}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+      console.log(response);
       if (response.data.plan.length > 0) {
         setPlan(response.data.plan[0].planName);
         setPlanDetails(response.data.plan[0]);
@@ -24,13 +39,25 @@ function Subscription() {
   };
 
   const addToPlan = async (planName) => {
+    const token = localStorage.getItem("token");
     const planDate = new Date().toISOString();
+
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+
     try {
       await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/users/add/plan`,
         {
           userEmail,
           data: { planName, planDate },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       getPlan();

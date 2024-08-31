@@ -34,17 +34,32 @@ export default React.memo(function Card({
 
   const userEmail = localStorage.getItem("email");
   const addToList = async () => {
+    const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+
+    if (!token) {
+      toast.error("No token found. Please log in.");
+      return;
+    }
+
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/add`, {
-        userEmail,
-        data: movieData,
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/add`,
+        {
+          userEmail,
+          data: movieData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request header
+          },
+        }
+      );
       toast.success("Successfully added to the list!");
     } catch (error) {
-      console.log(error);
+      console.error("Error adding movie to the list:", error);
+      toast.error("Failed to add movie to the list.");
     }
   };
-
   return (
     <div
       className="image-container"
