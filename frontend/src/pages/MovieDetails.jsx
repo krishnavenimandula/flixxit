@@ -4,7 +4,6 @@ import "./MovieDetails.css";
 function MovieDetails() {
   const location = useLocation();
   const { movie } = location.state;
-  console.log(movie);
   return (
     <div className="movie-details">
       <div>

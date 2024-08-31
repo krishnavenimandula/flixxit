@@ -5,21 +5,46 @@ import "./Profile.css";
 function Profile() {
   const [userData, setUserData] = useState({});
   const userEmail = localStorage.getItem("email");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchUserData = async () => {
+      if (!userEmail) {
+        setError("No email found in localStorage");
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userEmail}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/users/profile/${userEmail}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setError("Failed to fetch user data. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [userEmail]);
+  }, [userEmail, token]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="profile-container">

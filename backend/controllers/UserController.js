@@ -77,10 +77,8 @@ module.exports.addToLikedMovies = async (req, res) => {
 module.exports.addToPlan = async (req, res) => {
   verifyToken(req, res, async () => {
     try {
-      console.log(req.body);
       const { userEmail, data } = req.body;
       const user = await User.findOne({ email: userEmail });
-      console.log(user);
       if (user) {
         const { plan } = user;
         const planData = plan.find((plan) => plan === data.planName);
@@ -142,7 +140,6 @@ module.exports.getUserProfile = async (req, res) => {
       const planStartDate = user.plan[0]?.planDate
         ? new Date(user.plan[0].planDate)
         : null;
-      console.log(planStartDate);
       let planEndDate;
       if (planStartDate != null) {
         planEndDate = new Date(planStartDate);

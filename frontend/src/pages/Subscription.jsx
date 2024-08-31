@@ -17,7 +17,6 @@ function Subscription() {
     }
 
     try {
-      console.log(token);
       const response = await axios.get(
         `${import.meta.env.VITE_API_BASE_URL}/api/users/plan/${userEmail}`,
         {
@@ -26,7 +25,6 @@ function Subscription() {
           },
         }
       );
-      console.log(response);
       if (response.data.plan.length > 0) {
         setPlan(response.data.plan[0].planName);
         setPlanDetails(response.data.plan[0]);
