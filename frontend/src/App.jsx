@@ -19,6 +19,7 @@ import { ToastContainer } from "react-toastify";
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   const shouldShowNavbar =
@@ -26,7 +27,10 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
+    if (token != null) {
+      setIsAuthenticated(true);
+    }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -36,6 +40,10 @@ const App = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // You can replace this with a loader component
+  }
 
   return (
     <>

@@ -107,19 +107,25 @@ module.exports.getUserProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log(user);
+
     // Calculate plan end date as plan start date + 1 year
-    const planStartDate = new Date(user.plan[0].planDate);
-    const planEndDate = new Date(planStartDate);
-    planEndDate.setFullYear(planEndDate.getFullYear() + 1);
+    const planStartDate = user.plan[0]?.planDate
+      ? new Date(user.plan[0].planDate)
+      : null;
+    console.log(planStartDate);
+    let planEndDate;
+    if (planStartDate != null) {
+      planEndDate = new Date(planStartDate);
+      planEndDate.setFullYear(planEndDate?.getFullYear() + 1);
+    }
 
     res.json({
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      currentPlan: user.plan[0].planName,
-      planStartDate: planStartDate.toISOString(),
-      planEndDate: planEndDate.toISOString(),
+      currentPlan: user.plan[0]?.planName,
+      planStartDate: planStartDate != null ? planStartDate?.toISOString() : "",
+      planEndDate: planEndDate != null ? planEndDate?.toISOString() : "",
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
