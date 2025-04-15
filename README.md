@@ -1,4 +1,4 @@
-# flixxit
+# flixxit (https://flixxit-ui-bs9v.onrender.com/login)
 
 This repository contains the source code for both the frontend and backend of the project. The frontend handles the user interface, while the backend manages the API implementation.
 
