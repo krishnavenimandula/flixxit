@@ -68,7 +68,7 @@ export const fetchDataByGenre = createAsyncThunk(
     try {
       for (const genre of genres) {
         const genreMovies = await getRawData(
-          `${TMDB_BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=${genre}`,
+          `${TMDB_BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=${genre}&certification_country=GB&certification.lte=PG-13`,
           stateGenres
         );
         const uniqueMoviesMap = new Map();
@@ -97,7 +97,7 @@ export const fetchDataByGenreTv = createAsyncThunk(
     try {
       for (const genre of genres) {
         const genreMovies = await getRawData(
-          `${TMDB_BASE_URL}/discover/tv?api_key=${API_KEY}&language=en-US&with_genres=${genre}`,
+          `${TMDB_BASE_URL}/discover/tv?api_key=${API_KEY}&language=en-US&with_genres=${genre}&certification_country=GB&certification.lte=PG-13`,
           stateGenres
         );
         // Ensure uniqueness by using a Map
@@ -122,12 +122,23 @@ export const searchByText = createAsyncThunk(
     const {
       flixxit: { search },
     } = thunkAPI.getState();
-    return getRawData(
+
+    const response = await axios.get(
       `${TMDB_BASE_URL}/search/multi?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(
         query
-      )}`,
-      search
+      )}`
     );
+
+    const filteredResults = response.data.results.filter(
+      (item) =>
+        item.original_language === "en" &&
+        !item.adult &&
+        (item.media_type === "movie" || item.media_type === "tv")
+    );
+
+    const finalResults = [];
+    createArrayFromRawData(filteredResults, finalResults, search);
+    return finalResults;
   }
 );
 
@@ -138,7 +149,7 @@ export const fetchMovies = createAsyncThunk(
       flixxit: { genres },
     } = thunkAPI.getState();
     return getRawData(
-      `${TMDB_BASE_URL}/trending/${type}/week?api_key=${API_KEY}&language=en-US`,
+      `${TMDB_BASE_URL}/trending/${type}/week?api_key=${API_KEY}&language=en-US&certification_country=GB&certification.lte=PG-13`,
       genres,
       true
     );
