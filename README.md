@@ -21,9 +21,9 @@ The frontend is responsible for rendering the user interface and making requests
 	```env
 	VITE_TMDB_API_KEY=your_tmdb_api_key_here
 	VITE_API_BASE_URL=http://localhost:8080
-*VITE_TMDB_API_KEY*: Your API key for TMDB to fetch movie details.
+*VITE_TMDB_API_KEY*: Your API key for TMDB to fetch movie details. this is a free movie details fetching URL.
 *VITE_API_BASE_URL*: The base URL of the backend, typically http://localhost:8080 if running locally.
-3. **Install dependencies::**
+3. **Install dependencies:**
 	Before running the project, ensure that all dependencies are installed:
 
 	npm install
